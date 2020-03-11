@@ -13,11 +13,11 @@ const InvoiceList = observer (() => {
 
     const invoicesStore = useContext(invoicesContext);
     const appStore = useContext(appContext);
-    
+
     return (
         <section className='invoice-list'>
             <div className='invoice-list__button-container'>
-                <Button onClick={appStore.setDisplayAddInvoiceForm}>create invoice</Button>
+                <Button onClick={() => appStore.setDisplayAddInvoiceForm()}>create invoice</Button>
             </div>
             {invoicesStore.invoicesList.map((invoice, i )=> <Invoice key={i} {...invoice}/>)}
         </section>

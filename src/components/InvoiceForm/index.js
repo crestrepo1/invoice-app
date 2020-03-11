@@ -7,6 +7,19 @@ import invoicesContext from '../../stores/Invoices';
 import Button from '../Button';
 import FormInput from '../FormInput';
 
+const RenderInputs = (inputs, onChange, i) => 
+        Object.entries(inputs).map(([key, value], j) => {
+            return (
+                <FormInput
+                    key={j}
+                    name={key}
+                    onChange={onChange}
+                    data-index={i}
+                    {...value}
+                />
+            )
+        })
+
 const Form = observer(() => {
 
     const formStore = useContext(formContext);
@@ -14,25 +27,7 @@ const Form = observer(() => {
 
     const formSubmit = (ev) => {
         ev.preventDefault();
-        console.log(ev);
-        invoicesStore.addInvoice({
-            name: 'bill 4',
-            email: 'email@email.com',
-            dueDate: 'monday',
-            items: [
-                {
-                    itemName: 'item1',
-                    itemValue: '4.00'
-                },
-                {
-                    itemName: 'item2',
-                    itemValue: '5.00'
-                }, {
-                    itemName: 'item3',
-                    itemValue: '3.00'
-                }
-            ]
-        })
+        invoicesStore.addInvoice(formStore.invoiceValues)
     }
 
     const addDetailRow = (ev) => {
@@ -43,42 +38,21 @@ const Form = observer(() => {
     const {
         form,
         setFormData,
+        setDetailData,
         details
     } = formStore
 
     return (
         <form onSubmit={formSubmit}>
-            {Object.entries(form).map(([key, value], i) => {
-                return (
-                    <FormInput
-                        key={i}
-                        name={key}
-                        value={value.value}
-                        error={value.error}
-                        type={value.type}
-                        onChange={setFormData}
-                    />
-                )
-            })}
+            {RenderInputs(form, setFormData)}
             {details.map((detail, i ) => {
                 return (
                     <div key={i}>
-                        {Object.entries(detail).map(([key, value], i) => {
-                            return (
-                                <FormInput
-                                    key={i}
-                                    name={key}
-                                    value={value.value}
-                                    error={value.error}
-                                    type={value.type}
-                                    onChange={setFormData}
-                                />
-                            )
-                        })}
+                        {RenderInputs(detail, setDetailData, i)}
                     </div>
                 )
             })}
-            <span onClick={addDetailRow}> add row</span>
+            <span onClick={addDetailRow}>add row</span>
             <Button type="submit">Add</Button>
         </form>
     )

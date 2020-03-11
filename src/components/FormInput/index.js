@@ -8,7 +8,7 @@ const FormInput = props =>(
         <input {...props}
             type={props.type || 'test'}
             className="form-input__field"
-            onChange={(e) => props.onChange(e.target.name, e.target.value)} />
+            onChange={e => props.onChange(e.target)} />
         {props.error && <div className="form-input__error">{props.error}</div>}
     </span>
 )
@@ -16,7 +16,7 @@ const FormInput = props =>(
 FormInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['text', 'email', 'date']),
+    type: PropTypes.oneOf(['text', 'email', 'date', 'number']),
     error: PropTypes.string,
     placeholder: PropTypes.string,
 };

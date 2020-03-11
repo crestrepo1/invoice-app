@@ -2,9 +2,9 @@ import { action, observable } from 'mobx';
 import { createContext } from 'react';
 
 class AppStore {
-    displayAddInvoiceForm = observable(false);
+    @observable displayAddInvoiceForm = true;
 
-    setDisplayAddInvoiceForm = action(() => this.displayAddInvoiceForm = !this.displayAddInvoiceForm);
+    @action setDisplayAddInvoiceForm = () => this.displayAddInvoiceForm = !this.displayAddInvoiceForm;
 }
 
 const appContext = createContext(new AppStore());
