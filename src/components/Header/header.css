@@ -1,0 +1,6 @@
+.header {
+    background: var(--headerColor);
+    color: #fff;
+    text-align: left;
+    padding: 20px;
+}

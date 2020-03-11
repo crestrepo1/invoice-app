@@ -1,0 +1,12 @@
+.invoice {
+    border: 1px solid var(--borderColor);
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.invoice__detail {
+    font-weight: 600;
+}

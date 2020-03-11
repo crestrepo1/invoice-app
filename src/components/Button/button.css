@@ -1,0 +1,22 @@
+.button {
+    appearance: none;
+    background: var(--actionButtonColor);
+    color: #fff;
+    font-size: 1em;
+    text-transform: uppercase;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+    font-weight: 600;
+    transition: color .2s ease, background .2s ease, border .2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin: 0;
+}
+
+.button:hover {
+    appearance: none;
+    color: var(--actionButtonColor);
+    background: #fff;
+    border: 1px solid var(--actionButtonColor);
+}

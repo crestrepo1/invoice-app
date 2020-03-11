@@ -1,0 +1,16 @@
+.invoice-list {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+.invoice-list__button-container {
+    position: sticky;
+    left: 0;
+    top: 0;
+    padding: 20px 0;
+    z-index: 5;
+    background: var(--appBackground);
+}
+
