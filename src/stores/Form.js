@@ -2,6 +2,7 @@ import { action, observable, computed } from 'mobx';
 
 import { invoiceForm, detailsStructure } from '../common/dataStructures';
 
+// store to control input form
 export default class FormStore {
     @observable form = invoiceForm;
     // initiate rows array with 1 row
