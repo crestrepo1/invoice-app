@@ -1,44 +1,9 @@
 import { action, observable, computed } from 'mobx';
-import { createContext } from 'react';
 
-const detailsStructure = {
-    name: {
-        value: '',
-        error: '',
-        type: 'text',
+import { invoiceForm, detailsStructure } from '../common/dataStructures';
 
-    },
-    value: {
-        value: '',
-        error: '',
-        type: 'number',
-
-    }
-}
-
-class FormStore {
-    @observable form = {
-        name: {
-            name: 'name',
-            value: '',
-            error: '',
-            placeholder: 'enter your name',
-            type: 'text',
-
-        },
-        email: {
-            value: '',
-            error: '',
-            type: 'email',
-            placeholder: 'enter your email',
-        },
-        date: {
-            value: '',
-            error: '',
-            type: 'date',
-
-        },
-    };
+export default class FormStore {
+    @observable form = invoiceForm;
     // initiate rows array with 1 row
     @observable details = [detailsStructure];
     // set input value
@@ -46,7 +11,19 @@ class FormStore {
     // add details row
     @action addDetail = () => this.details.push(detailsStructure);
     // set detail data
-    @action setDetailData = ({ name, value, dataset}) => this.details[dataset.index][name].value = value
+    @action setDetailData = ({ name, value, dataset}) => this.details[dataset.index][name].value = value;
+
+    @action clearForm = () => {
+        this.form = invoiceForm;
+        this.details = [detailsStructure];
+    }
+
+    @computed get detailsTotal() {
+        return this.details.reduce((accumulator, currentValue) => {
+            const amount = currentValue.value.value === '' ? 0 : currentValue.value.value;
+            return accumulator + parseFloat(amount)}
+        , 0)
+    }
 
     @computed get invoiceValues() {
         const { name, email, date } = this.form
@@ -59,11 +36,8 @@ class FormStore {
             name: name.value,
             email: email.value,
             dueDate: date.value,
-            details: detailValues
+            details: detailValues,
+            total: this.detailsTotal
         }
     }
 }
-
-const formContext = createContext(new FormStore());
-
-export default formContext;

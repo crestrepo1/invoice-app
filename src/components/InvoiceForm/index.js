@@ -1,11 +1,13 @@
-import React, {useContext}  from 'react';
+import React  from 'react';
 import { observer } from 'mobx-react-lite';
 
-import formContext from '../../stores/Form';
-import invoicesContext from '../../stores/Invoices';
+import formatCurrency from '../../common/formatCurrency';
+import { useStores } from '../../stores';
 
 import Button from '../Button';
 import FormInput from '../FormInput';
+
+import styles from './invoice-form.module.css';
 
 const RenderInputs = (inputs, onChange, i) => 
         Object.entries(inputs).map(([key, value], j) => {
@@ -22,12 +24,13 @@ const RenderInputs = (inputs, onChange, i) =>
 
 const Form = observer(() => {
 
-    const formStore = useContext(formContext);
-    const invoicesStore = useContext(invoicesContext);
+    const { invoicesStore, formStore, globalStore } = useStores()
 
     const formSubmit = (ev) => {
         ev.preventDefault();
-        invoicesStore.addInvoice(formStore.invoiceValues)
+        invoicesStore.addInvoice(formStore.invoiceValues);
+        formStore.clearForm();
+        globalStore.setDisplayAddInvoiceForm();
     }
 
     const addDetailRow = (ev) => {
@@ -39,20 +42,22 @@ const Form = observer(() => {
         form,
         setFormData,
         setDetailData,
-        details
+        details,
+        detailsTotal
     } = formStore
 
     return (
-        <form onSubmit={formSubmit}>
+        <form className={styles.form} onSubmit={formSubmit}>
             {RenderInputs(form, setFormData)}
             {details.map((detail, i ) => {
                 return (
-                    <div key={i}>
+                    <div className={styles.details} key={i}>
                         {RenderInputs(detail, setDetailData, i)}
                     </div>
                 )
             })}
-            <span onClick={addDetailRow}>add row</span>
+            <p className={styles.total}>Total: {formatCurrency(detailsTotal)}</p>
+            <span tabIndex="0" className={styles.add} onClick={addDetailRow}>add row</span>
             <Button type="submit">Add</Button>
         </form>
     )

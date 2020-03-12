@@ -5,7 +5,7 @@
     position: relative;
 }
 
-.invoice-list__button-container {
+.button-container {
     position: sticky;
     left: 0;
     top: 0;

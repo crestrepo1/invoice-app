@@ -1,6 +1,6 @@
 import React from 'react';
-import './header.css';
+import styles from  './header.module.css';
 
 export default () => (
-    <header className='header'>Invoices</header>
+    <header className={styles.header}>Invoices</header>
     )

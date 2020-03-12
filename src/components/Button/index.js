@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './button.css';
+import styles from  './button.module.css';
 
 const Button = ({modifier, children, ...rest}) => (
-    <button className={`button ${modifier}`} {...rest}>{children}</button>
+    <button className={`${styles.button} ${modifier}`} {...rest}>{children}</button>
 )
 
 Button.propTypes = {
-    // onClick: PropTypes.func,
+    onClick: PropTypes.func,
     modifier: PropTypes.string
 }
 

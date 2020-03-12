@@ -7,6 +7,15 @@
     cursor: pointer;
 }
 
-.invoice__detail {
+.detail {
     font-weight: 600;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    width: calc(50% - 10%);
 }

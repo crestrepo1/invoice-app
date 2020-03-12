@@ -1,25 +1,23 @@
-import React, { useContext} from 'react';
+import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import invoicesContext from '../../stores/Invoices';
-import appContext from '../../stores/App';
+import { useStores } from '../../stores';
 
 import Invoice from '../Invoice';
 import Button from '../Button';
 
-import './invoice-list.css';
+import styles from './invoice-list.module.css';
 
 const InvoiceList = observer (() => {
 
-    const invoicesStore = useContext(invoicesContext);
-    const appStore = useContext(appContext);
+    const { invoicesStore, globalStore } = useStores()
 
     return (
-        <section className='invoice-list'>
-            <div className='invoice-list__button-container'>
-                <Button onClick={() => appStore.setDisplayAddInvoiceForm()}>create invoice</Button>
+        <section className={styles['invoice-list']}>
+            <div className={styles['button-container']}>
+                <Button onClick={() => globalStore.setDisplayAddInvoiceForm()}>create invoice</Button>
             </div>
-            {invoicesStore.invoicesList.map((invoice, i )=> <Invoice key={i} {...invoice}/>)}
+            {invoicesStore.invoicesList.map((invoice, i )=> <Invoice key={i} index={i} {...invoice}/>)}
         </section>
     )
 })

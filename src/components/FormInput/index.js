@@ -2,14 +2,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './form-input.module.css';
 
-const FormInput = props =>(
-    <span className='form-input'>
-        <input {...props}
-            type={props.type || 'test'}
-            className="form-input__field"
-            onChange={e => props.onChange(e.target)} />
-        {props.error && <div className="form-input__error">{props.error}</div>}
+const FormInput = ({modifier, onChange, ...rest}) =>(
+    <span className={styles.wrapper}>
+        <input {...rest}
+            type={rest.type}
+            className={`${styles.input} ${modifier || ''}`}
+            onChange={e => onChange(e.target)} />
+        {rest.error && <div className="form-input__error">{rest.error}</div>}
     </span>
 )
 

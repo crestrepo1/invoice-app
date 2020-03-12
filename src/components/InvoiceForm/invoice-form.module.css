@@ -1,0 +1,44 @@
+.form {
+    border-radius: 5px;
+    padding: 20px;
+    width: 750px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--formBackgroundColor);
+    z-index: 10;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.details span:first-child {
+    width: calc(66% - 10px);
+}
+
+.details span:last-child {
+    width: calc(33% - 10px);
+}
+
+.add {
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 20px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.add:hover {
+    color: var(--formBackgroundColor);
+    border: 1px solid transparent;
+    background: #fff;
+}
+
+.total {
+    color: #fff;
+    font-weight: 700;
+}
