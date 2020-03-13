@@ -1,3 +1,12 @@
+:root {
+  --appBackground: #ecf0f1;
+  --headerColor: #2980b9;
+  --borderColor: #95a5a6;
+  --actionButtonColor: #27ae60;
+  --actionButtonHover: #2ecc71;
+  --formBackgroundColor: #7f8c8d;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -11,16 +20,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body, 
+html {
+  background: var(--appBackground);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-:root {
-  --appBackground: #ecf0f1;
-  --headerColor: #2980b9;
-  --borderColor: #95a5a6;
-  --actionButtonColor: #27ae60;
-  --actionButtonHover: #2ecc71;
-  --formBackgroundColor: #7f8c8d;
 }
