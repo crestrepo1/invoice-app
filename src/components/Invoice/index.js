@@ -10,13 +10,16 @@ import styles from './invoice.module.css';
 export default ({ name, email, date, index, details}) =>{
 
     const { invoicesStore: { setInvoiceIndex, setDisplayForm, invoiceTotalAmoutArray, setIsEditing} } = useStores();
+    // display invoiceDetails
     const [displayDetails, setDisplayDetails] = useState(false)
 
-    const viewInvoice = (ev) => {
+    const editInvoice = (ev) => {
         setIsEditing(true);
+        // set active invoice to this one and open the form
         setInvoiceIndex(ev.target.dataset.index);
         setDisplayForm();
     }
+
     return (
         <div className={styles.invoice}>
             <p><span className={styles.detail}>Name:</span> {name}</p>
@@ -30,7 +33,7 @@ export default ({ name, email, date, index, details}) =>{
             }
             <div className={styles['button-container']}>
                 <Button modifier={styles.button} data-index={index} onClick={() => setDisplayDetails(!displayDetails)}>{displayDetails ? 'Hide' : 'View'} Details</Button>
-                <Button modifier={styles.button} data-index={index} onClick={viewInvoice}>Edit</Button>
+                <Button modifier={styles.button} data-index={index} onClick={editInvoice}>Edit</Button>
             </div>
         </div>
     )

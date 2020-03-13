@@ -12,10 +12,13 @@ import styles from './invoice-list.module.css';
 const InvoiceList = observer (() => {
 
     const { invoicesStore: { invoiceTotalAmoutArray, setInvoiceIndex, addInvoice, setDisplayForm, invoicesList, displayForm} } = useStores();
-
+    
     const createInvoice = () => {
-        setInvoiceIndex(invoicesList.length)
+        // set current invoice to the last one
+        setInvoiceIndex(invoicesList.length);
+        // add invoice to invoicesList array now the active invoice will match with the InvoiceIndex
         addInvoice();
+        // open the form
         setDisplayForm();
     }
 

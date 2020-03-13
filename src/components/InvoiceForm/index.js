@@ -26,7 +26,7 @@ const Form = observer(() => {
         setIsEditing
     }} = useStores();
     const {name, email, date, details} = currentInvoice;
-
+    // generic function to close the form and set off flag of isEditing
     const closeForm = () => {
         setDisplayForm();
         if (isEditing) setIsEditing(!isEditing);
@@ -36,13 +36,12 @@ const Form = observer(() => {
         ev.preventDefault();
         closeForm()
     }
-
+    // if we are not editing aka, creating a new invoice delte it
     const cancelWork = () => {
-        // if we are not editing aka, creating a new invoice delte it
         if (!isEditing) deleteInvoice(invoicesList.length - 1);
         closeForm();
     }
-
+    // delete currently open invoice
     const deleteThisInvoice = () => {
         deleteInvoice(invoiceIndex);
         closeForm();

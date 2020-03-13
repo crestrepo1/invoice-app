@@ -6,5 +6,5 @@ export const storesContext = createContext({
     invoicesStore: new InvoicesStore(),
 })
 
-// create hook to implement stores
+// create hook to implement store
 export const useStores = () => useContext(storesContext);

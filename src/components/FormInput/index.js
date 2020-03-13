@@ -7,7 +7,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import styles from './form-input.module.css';
 
 const FormInput = ({ modifier, onChange, type, currency, ...rest}) =>{
-
+    // default options for currency input
     const defaultMaskOptions = {
         prefix: '$',
         suffix: '',
