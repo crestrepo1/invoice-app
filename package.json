@@ -1,5 +1,6 @@
 {
   "name": "invoice_app",
+  "homepage": "http://crestrepo1.github.io/invoice-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -69,7 +70,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -150,6 +153,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.8.3"
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "gh-pages": "^2.2.0"
   }
 }
