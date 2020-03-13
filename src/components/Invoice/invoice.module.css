@@ -1,10 +1,10 @@
 .invoice {
+    background: #FFF;
     border: 1px solid var(--borderColor);
+    cursor: pointer;
+    margin-bottom: 20px;
     padding: 20px;
     width: 100%;
-    margin-bottom: 20px;
-    background: #fff;
-    cursor: pointer;
 }
 
 .detail {

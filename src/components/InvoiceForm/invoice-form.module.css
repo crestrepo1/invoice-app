@@ -1,12 +1,9 @@
 .form {
-    border-radius: 5px;
-    padding: 20px;
-    width: 750px;
-    position: absolute;
-    top: 20px;
-    left: 20px;
     background: var(--formBackgroundColor);
-    z-index: 10;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 20px;
+    width: 100%;
 }
 
 .details {
@@ -14,31 +11,45 @@
     justify-content: space-between;
 }
 
-.details span:first-child {
+.description {
     width: calc(66% - 10px);
 }
 
-.details span:last-child {
+.amount {
     width: calc(33% - 10px);
 }
 
 .add {
-    color: #fff;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    color: #FFF;
+    cursor: pointer;
     display: inline-block;
     margin-bottom: 20px;
-    border: 1px solid #fff;
-    border-radius: 5px;
     padding: 20px;
-    cursor: pointer;
 }
 
 .add:hover {
-    color: var(--formBackgroundColor);
+    background: #FFF;
     border: 1px solid transparent;
-    background: #fff;
+    color: var(--formBackgroundColor);
 }
 
 .total {
-    color: #fff;
+    color: #FFF;
     font-weight: 700;
+}
+
+.close {
+    color: #FFF;
+    cursor: pointer;
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 15px 0 15px 15px;
+    text-align: right;
+}
+
+.close:hover {
+    color: var(--appBackground);
 }

@@ -7,22 +7,29 @@ import Button from '../Button';
 
 import styles from './invoice.module.css';
 
-export default ({ name, email, dueDate, index, total, details}) =>{
+export default ({ name, email, date, index, details}) =>{
 
-    const { invoicesStore } = useStores();
+    const { invoicesStore: { setInvoiceIndex, setDisplayForm, invoiceTotalAmoutArray, setIsEditing} } = useStores();
     const [displayDetails, setDisplayDetails] = useState(false)
 
-    const viewInvoice = (ev) => console.log(invoicesStore.invoicesList[ev.target.dataset.index]);
-
+    const viewInvoice = (ev) => {
+        setIsEditing(true);
+        setInvoiceIndex(ev.target.dataset.index);
+        setDisplayForm();
+    }
     return (
         <div className={styles.invoice}>
             <p><span className={styles.detail}>Name:</span> {name}</p>
             <p><span className={styles.detail}>Email:</span> {email}</p>
-            <p><span className={styles.detail}>Date:</span> {dueDate}</p>
-            <p><span className={styles.detail}>Total:</span> {formatCurrency(total)}</p>
-            {displayDetails && details.map((detail, i) => <p key={i}>{detail.name} : {detail.value}</p>)}
+            <p><span className={styles.detail}>Date:</span> {date}</p>
+            <p><span className={styles.detail}>Total:</span> {formatCurrency(invoiceTotalAmoutArray[index])}</p>
+            {displayDetails && 
+                <ol>
+                    {details.map(({desc, amount}, i) => <li key={i}>{desc} : {formatCurrency(amount)}</li>)}
+                </ol>
+            }
             <div className={styles['button-container']}>
-                <Button modifier={styles.button} data-index={index} onClick={() => setDisplayDetails(!displayDetails)}>{displayDetails ? 'Hide Details' : 'View'}</Button>
+                <Button modifier={styles.button} data-index={index} onClick={() => setDisplayDetails(!displayDetails)}>{displayDetails ? 'Hide' : 'View'} Details</Button>
                 <Button modifier={styles.button} data-index={index} onClick={viewInvoice}>Edit</Button>
             </div>
         </div>

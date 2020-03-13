@@ -9,47 +9,61 @@ import FormInput from '../FormInput';
 
 import styles from './invoice-form.module.css';
 
-const RenderInputs = (inputs, onChange, i) => 
-        Object.entries(inputs).map(([key, value], j) => {
-            return (
-                <FormInput
-                    key={j}
-                    name={key}
-                    onChange={onChange}
-                    data-index={i}
-                    {...value}
-                />
-            )
-        })
 
 const Form = observer(() => {
 
-    const { 
-        invoicesStore: { addInvoice }, 
-        formStore: { form, setFormData, setDetailData, details, detailsTotal, invoiceValues, clearForm, addDetail }, 
-        globalStore: { setDisplayAddInvoiceForm}
-    } = useStores()
+    const { invoicesStore: { 
+        setFormData, 
+        addDetailrow, 
+        currentInvoice, 
+        setDetailData,
+        setDisplayForm, 
+        invoiceTotalAmoutArray,
+        isEditing,
+        invoiceIndex,
+        deleteInvoice,
+        invoicesList,
+        setIsEditing
+    }} = useStores();
+    const {name, email, date, details} = currentInvoice;
 
+    const closeForm = () => {
+        setDisplayForm();
+        if (isEditing) setIsEditing(!isEditing);
+    }
+    // all data is saved live so just close the form
     const formSubmit = (ev) => {
         ev.preventDefault();
-        addInvoice(invoiceValues);
-        clearForm();
-        setDisplayAddInvoiceForm();
+        closeForm()
     }
 
-    const addDetailRow = () => addDetail();
+    const cancelWork = () => {
+        // if we are not editing aka, creating a new invoice delte it
+        if (!isEditing) deleteInvoice(invoicesList.length - 1);
+        closeForm();
+    }
+
+    const deleteThisInvoice = () => {
+        deleteInvoice(invoiceIndex);
+        closeForm();
+    }
 
     return (
         <form className={styles.form} onSubmit={formSubmit}>
-            {RenderInputs(form, setFormData)}
-            {details.map((detail, i ) => (
-                    <div className={styles.details} key={i}>
-                        {RenderInputs(detail, setDetailData, i)}
-                    </div>
-                ))}
-            <p className={styles.total}>Total: {formatCurrency(detailsTotal)}</p>
-            <span tabIndex="0" className={styles.add} onClick={addDetailRow}>add row</span>
-            <Button type="submit">Add</Button>
+            <span tabIndex="0" className={styles.close} onClick={() => cancelWork()}>X</span>
+            <FormInput onChange={setFormData} required placeholder='invoice name' name='name' value={name} type='text' />
+            <FormInput onChange={setFormData} required placeholder='email' name='email' value={email} type='email' />
+            <FormInput onChange={setFormData} required placeholder='date' name='date' value={date} type='date' />
+            {details.map(({desc, amount}, i) =>
+                <div className={styles.details} key={i}>
+                    <FormInput modifier={styles.description} required placeholder='description' onChange={setDetailData} name='desc' data-index={i} value={desc} type='text' />
+                    <FormInput modifier={styles.amount} required currency={true} placeholder='0.00' onChange={setDetailData} name='amount' data-index={i} value={amount} type='number' step='0.01' />
+                </div>
+            )}
+            <p className={styles.total}>Total: {formatCurrency(invoiceTotalAmoutArray[invoiceIndex])}</p>
+            <span tabIndex="0" className={styles.add} onClick={() => addDetailrow()}>add row</span>
+            {isEditing && <span tabIndex="0" className={styles.add} onClick={() => deleteThisInvoice()}>Delete</span>}
+            <Button type="submit" >{isEditing ? 'Save': 'Create'}</Button>
         </form>
     )
 })
